@@ -23,15 +23,11 @@ public sealed class LibraryManagement
     }
 
     public static Book lendBook(int id){
-        try
-        {
-            return LibraryManagement.Books.Single(b => b.Id == id);
-        }
-        catch (System.Exception)
-        {
-            Console.WriteLine("Book with id " + id + " is not avaliable");
-            throw;
-        }
+
+        var bookWanted = LibraryManagement.Books.SingleOrDefault(b => b.Id == id);
+        if (bookWanted != null) LibraryManagement.Books.Remove(bookWanted);
+        return bookWanted;
+
 
     }
 }
