@@ -1,10 +1,10 @@
-public class Copie
+public class Copy
 {
     public int Id { get; init; }
     public int BookId { get; init; }
-    public bool CopieStatus { get => BorrowedTime > DateTime.Now.TimeOfDay; }
+    public bool Copiestatus { get => BorrowedTime > DateTime.Now.TimeOfDay; }
     
-    public Copie(int id, int bookId)
+    public Copy(int id, int bookId)
     {
         Id = id;
         BookId = bookId;

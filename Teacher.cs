@@ -6,7 +6,7 @@ public class Teacher : User
         Name = name;
     }
 
-    public override TimeSpan BorrowCopieTime { get; } = TimeSpan.FromDays(7);
+    public override TimeSpan BorrowCopyTime { get; } = TimeSpan.FromDays(7);
     
     public override bool CanBorrow() =>
         BorrowedCopies.All(b => b.BorrowedTime > DateTime.Now.TimeOfDay);

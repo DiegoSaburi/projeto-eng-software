@@ -2,21 +2,21 @@ public abstract class User
 {
     public int Id { get; protected set; }
     public string Name { get; protected set; } = string.Empty;
-    public virtual TimeSpan BorrowCopieTime { get; }
-    public List<Copie> BorrowedCopies { get; protected set; } = new List<Copie>();
+    public virtual TimeSpan BorrowCopyTime { get; }
+    public List<Copy> BorrowedCopies { get; protected set; } = new List<Copy>();
     public abstract bool CanBorrow();
     
-    public void BorrowCopie(Copie copie) 
+    public void BorrowCopy(Copy Copy) 
     {
         if(CanBorrow()) 
         {
-            copie.Borrow(BorrowCopieTime);
-            BorrowedCopies.Add(copie);
+            Copy.Borrow(BorrowCopyTime);
+            BorrowedCopies.Add(Copy);
         }
     }
 
-    public void ReturnBook(Copie copie)
+    public void ReturnBook(Copy Copy)
     {
-        BorrowedCopies.Remove(copie);
+        BorrowedCopies.Remove(Copy);
     }
 }

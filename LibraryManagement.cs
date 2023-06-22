@@ -21,4 +21,17 @@ public sealed class LibraryManagement
             _instance = new LibraryManagement();
         return _instance;
     }
+
+    public static Book lendBook(int id){
+        try
+        {
+            return LibraryManagement.Books.Single(b => b.Id == id);
+        }
+        catch (System.Exception)
+        {
+            Console.WriteLine("Book with id " + id + " is not avaliable");
+            throw;
+        }
+
+    }
 }

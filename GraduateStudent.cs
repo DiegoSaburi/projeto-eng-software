@@ -6,7 +6,7 @@ public class GraduateStudent : User
         Name = name;
     }
     
-    public override TimeSpan BorrowCopieTime { get; } = TimeSpan.FromDays(4);
+    public override TimeSpan BorrowCopyTime { get; } = TimeSpan.FromDays(4);
 
     public override bool CanBorrow() =>
         BorrowedCopies.Count < 4 
