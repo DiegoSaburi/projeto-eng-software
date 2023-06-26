@@ -1,13 +1,13 @@
 public class Copy
 {
     public int Id { get; init; }
-    public int BookId { get; init; }
-    public bool Copiestatus { get => BorrowedTime > DateTime.Now.TimeOfDay; }
+    public Book Book { get; init; }
+    public bool CopyStatus { get => BorrowedTime > DateTime.Now.TimeOfDay; }
     
-    public Copy(int id, int bookId)
+    public Copy(int id, Book book)
     {
         Id = id;
-        BookId = bookId;
+        Book = book;
     }
 
     public TimeSpan BorrowedTime { get; private set; }

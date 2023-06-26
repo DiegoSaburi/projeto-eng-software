@@ -1,7 +1,8 @@
-public class BorrowCommand<LibraryRequest> : ICommand<LibraryRequest>
+public class BorrowCommand : ICommand<LibraryRequest>
 {
     public void Execute(LibraryRequest data)
     {
-        throw new NotImplementedException();
+        var libraryManagment = LibraryManagement.GetInstance();
+        libraryManagment.LendCopy(data.UserId, data.BookId);
     }
 }

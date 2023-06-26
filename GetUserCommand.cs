@@ -1,4 +1,4 @@
-public class GetUserCommand<LibraryRequest> : ICommand<LibraryRequest>
+public class GetUserCommand : ICommand<LibraryRequest>
 {
     public void Execute(LibraryRequest data)
     {
