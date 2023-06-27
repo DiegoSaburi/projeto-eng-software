@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = projeto_eng_software
-build_property.ProjectDir = c:\Users\diego\Documents\projetos\Engenharia de software\projeto-eng-software\
+build_property.ProjectDir = /home/david/Projects/git-proj/projeto-eng-software/

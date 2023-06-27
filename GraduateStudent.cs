@@ -8,7 +8,5 @@ public class GraduateStudent : User
     
     public override TimeSpan BorrowCopyTimeLimit { get; } = TimeSpan.FromDays(4);
 
-    public override bool CanBorrow() =>
-        BorrowedCopies.Count < 4 
-        && BorrowedCopies.All(b => b.BorrowedTime > DateTime.Now.TimeOfDay);
+    public override IBorrowStrategy BorrowStrategy { get; } = new GraduateStudentBorrowStrategy();
 }

@@ -2,7 +2,12 @@ public class Copy
 {
     public int Id { get; init; }
     public Book Book { get; init; }
-    public bool CopyStatus { get => BorrowedTime > DateTime.Now.TimeOfDay; }
+    public bool IsBorrowed 
+    { 
+        get => BorrowedTime == null ? false 
+            : BorrowedTime > DateTime.Now.TimeOfDay; 
+    }
+    public DateTime BorrowedDate { get; private set; }
     
     public Copy(int id, Book book)
     {

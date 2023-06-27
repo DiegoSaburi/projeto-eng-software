@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "RlVa/jcVMjPaxSvsceagt3DoSinACv7XyQrXLulZztmAfyDMQP+M1qki1wY1W9vt2GXqqqXu8IkkqDHkUdaAnA==",
+  "dgSpecHash": "gh1SKweZmUEWj6CeKCyvPnZ0hc37zAAFO9zUcToQGS3bdjU68SbmOyjkH5kWjCtFd90j4Fnm93BXLM8Me0LrEg==",
   "success": true,
-  "projectFilePath": "c:\\Users\\diego\\Documents\\projetos\\Engenharia de software\\projeto-eng-software\\projeto-eng-software.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/david/Projects/git-proj/projeto-eng-software/projeto-eng-software.csproj",
+  "expectedPackageFiles": [
+    "/home/david/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.5/microsoft.aspnetcore.app.ref.7.0.5.nupkg.sha512"
+  ],
   "logs": []
 }

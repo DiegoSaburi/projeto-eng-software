@@ -8,26 +8,24 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\diego\\.nuget\\packages\\": {}
+    "/home/david/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\diego\\Documents\\projetos\\Engenharia de software\\projeto-eng-software\\projeto-eng-software.csproj",
+      "projectUniqueName": "/home/david/Projects/git-proj/projeto-eng-software/projeto-eng-software.csproj",
       "projectName": "projeto-eng-software",
-      "projectPath": "c:\\Users\\diego\\Documents\\projetos\\Engenharia de software\\projeto-eng-software\\projeto-eng-software.csproj",
-      "packagesPath": "C:\\Users\\diego\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\diego\\Documents\\projetos\\Engenharia de software\\projeto-eng-software\\obj\\",
+      "projectPath": "/home/david/Projects/git-proj/projeto-eng-software/projeto-eng-software.csproj",
+      "packagesPath": "/home/david/.nuget/packages/",
+      "outputPath": "/home/david/Projects/git-proj/projeto-eng-software/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\diego\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/david/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -56,12 +54,18 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.5, 7.0.5]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.105/RuntimeIdentifierGraph.json"
       }
     }
   }

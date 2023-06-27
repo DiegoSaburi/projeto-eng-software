@@ -5,15 +5,17 @@ public abstract class User
     public virtual TimeSpan BorrowCopyTimeLimit { get; }
     public List<Copy> BorrowedCopies { get; protected set; } = new List<Copy>();
     public List<BookReserve> BookReserves { get; protected set; } = new List<BookReserve>();
-    public abstract bool CanBorrow();
+    public virtual IBorrowStrategy BorrowStrategy { get; } 
     
-    public void TryBorrowCopy(Copy Copy) 
+    public string TryBorrowCopy(Copy? copy)
     {
-        if(CanBorrow()) 
+        if(copy is not null)
         {
-            Copy.Borrow(BorrowCopyTimeLimit);
-            BorrowedCopies.Add(Copy);
+            copy.Borrow(BorrowCopyTimeLimit);
+            BorrowedCopies.Add(copy);
+            return "Empréstimo feito com sucesso";
         }
+        return "Não foi possível concluir o empréstimo";
     }
 
     public void ReturnBook(Copy Copy)

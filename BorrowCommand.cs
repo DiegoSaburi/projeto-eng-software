@@ -2,7 +2,7 @@ public class BorrowCommand : ICommand<LibraryRequest>
 {
     public void Execute(LibraryRequest data)
     {
-        var libraryManagment = LibraryManagement.GetInstance();
-        libraryManagment.LendCopy(data.UserId, data.BookId);
+        var libraryManagement = LibraryManagement.Instance;
+        libraryManagement.LendCopy(data.UserId, data.BookId);
     }
 }

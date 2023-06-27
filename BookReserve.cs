@@ -1,17 +1,14 @@
-public class BookReserve (Book Book, User User)
+public class BookReserve
 {
     public User User { get; init; }
     
     public Book Book { get; init; }
+
+    public bool IsActive { get; set; }
     
-    public BookReserve(Book book, User user)
+    public BookReserve(User user, Book book)
     {
         Book = book;
         User = user;
-    }
-
-    public void Method()
-    {
-        Console.WriteLine("Test");
     }
 }
