@@ -6,9 +6,10 @@ public class BookReserve
 
     public bool IsActive { get; set; }
     
-    public BookReserve(User user, Book book)
+    public BookReserve(User user, Book book, bool isActive = true)
     {
         Book = book;
         User = user;
+        IsActive = isActive;
     }
 }

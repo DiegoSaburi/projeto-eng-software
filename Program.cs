@@ -1,6 +1,7 @@
 ﻿Dictionary<string, ICommand<LibraryRequest>> Commands = new ()
 {
     { "emp", new BorrowCommand() },
+    { "res", new ReserveBookCommand() },
     { "user", new GetUserCommand() }
 };
 

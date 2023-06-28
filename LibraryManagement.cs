@@ -67,4 +67,13 @@ public sealed class LibraryManagement
             Console.WriteLine(response);
         }
     }
+
+    public void ReserveBook(int userId, int bookId)
+    {
+        var user = Users.First(u => u.Id == userId);
+        var book = Books.First(b => b.Id == bookId);
+        var bookReserve = new BookReserve(user, book);
+        user.ReserveBook(bookReserve);
+        BookReserves.Add(bookReserve);
+    }
 }
