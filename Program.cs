@@ -2,7 +2,7 @@
 {
     { "emp", new BorrowCommand() },
     { "res", new ReserveBookCommand() },
-    { "user", new GetUserCommand() },
+    { "usu", new GetUserBorrowsAndReservesCommand() },
     { "dev", new GiveBackCommand() },
     { "ntf", new GetUserNotificationsCommand() },
     { "obs", new AttachObserverCommand() },

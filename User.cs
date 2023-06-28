@@ -40,7 +40,7 @@ public abstract class User
         var copyGot = BorrowedCopies.FirstOrDefault(c => c.Book.Id == bookId);
         if (copyGot is not null)
         {
-            copyGot.IsBorrowed = false;
+            copyGot.CopyStatus = CopyStatus.Finished;
             return (true,copyGot.Id);
         }
         return (false, 0);

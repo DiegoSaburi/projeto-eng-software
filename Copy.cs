@@ -1,8 +1,14 @@
+public enum CopyStatus
+{
+    Running,
+    Finished
+}
+
 public class Copy
 {
     public int Id { get; init; }
     public Book Book { get; init; }
-    public bool IsBorrowed{ get; set; }
+    public CopyStatus CopyStatus{ get; set; }
     public DateTime BorrowedDate { get; private set; }
     
     public Copy(int id, Book book)
@@ -13,13 +19,9 @@ public class Copy
 
     public TimeSpan BorrowedTime { get; private set; }
 
-    public bool Borrow(TimeSpan borrowedTime) 
+    public void Borrow(TimeSpan borrowedTime) 
     {
-        if(BorrowedTime >= DateTime.Now.TimeOfDay)
-        {
-            BorrowedTime = borrowedTime;
-            return true;
-        }
-        return false;
+        CopyStatus = CopyStatus.Running;
+        BorrowedTime = borrowedTime;
     }
 }

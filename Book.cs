@@ -1,5 +1,3 @@
-using System.Linq;
-
 public class Book : ISubject
 {
     public Book(int id, string title, List<string> authors, string edition,
