@@ -3,7 +3,9 @@
     { "emp", new BorrowCommand() },
     { "res", new ReserveBookCommand() },
     { "user", new GetUserCommand() },
-    { "dev", new GiveBackCommand() }
+    { "dev", new GiveBackCommand() },
+    { "ntf", new GetUserNotificationsCommand() },
+    { "obs", new AttachObserverCommand() },
 };
 
 while(true)

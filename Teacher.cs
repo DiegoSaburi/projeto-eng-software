@@ -1,4 +1,4 @@
-public class Teacher : User
+public class Teacher : User, IObserver
 {
     public Teacher(int id, string name)
     {
@@ -7,4 +7,11 @@ public class Teacher : User
     }
 
     public override TimeSpan BorrowCopyTimeLimit { get; } = TimeSpan.FromDays(7);
+    
+    public int HowManyNotifications { get; private set; }
+
+    public void Update(ISubject subject)
+    {
+        HowManyNotifications++;
+    }
 }

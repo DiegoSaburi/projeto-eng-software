@@ -65,6 +65,18 @@ public sealed class LibraryManagement
     
     }
 
+    public void AddBookObserver(int userId, int bookId)
+    {
+        var book = Books.First(b => b.Id == bookId);
+        book.Attach((IObserver)Users.First(u => u.Id == userId));
+    }
+
+    public void HowManyNotifications(int userId)
+    {
+        var observer = (IObserver)Users.First(u => u.Id == userId);
+        Console.WriteLine($"Usuário id:[{userId}] foi notificado [{observer.HowManyNotifications}] vezes sobre os livros que observa");
+    }
+
     public void GetBackCopy(int userId, int bookId)
     {
         var user = Users.First(u => u.Id == userId);
