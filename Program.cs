@@ -2,7 +2,8 @@
 {
     { "emp", new BorrowCommand() },
     { "res", new ReserveBookCommand() },
-    { "user", new GetUserCommand() }
+    { "user", new GetUserCommand() },
+    { "dev", new GiveBackCommand() }
 };
 
 while(true)

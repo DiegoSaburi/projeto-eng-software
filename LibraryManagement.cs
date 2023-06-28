@@ -60,12 +60,23 @@ public sealed class LibraryManagement
                 var bookReserve = BookReserves.First(br => br.Book.Id == bookId);
                 bookReserve.IsActive = false;
             }
-            Console.WriteLine(response);
         }
-        else
-        {
-            Console.WriteLine(response);
+        Console.WriteLine(response);
+    
+    }
+
+    public void GetBackCopy(int userId, int bookId)
+    {
+        var user = Users.First(u => u.Id == userId);
+        var (returned,returnedCopyId)= user.ReturnCopy(bookId);
+        if(returned)
+        {            
+            var originalCopy = Copies.First(c => c.Id == returnedCopyId);
+            originalCopy.IsBorrowed = false;
+
+            Console.WriteLine($"usuário {user.Name} devolveu o livro {originalCopy.Book.Title} com sucesso");
         }
+        //TODO: printar linha de erro ao tentar retornar o livro
     }
 
     public void ReserveBook(int userId, int bookId)

@@ -35,8 +35,14 @@ public abstract class User
         return $"Já existem mais de três reservas para o usuário {Name}";
     }
 
-    public void ReturnBook(Copy Copy)
+    public (bool,int) ReturnCopy(int bookId)
     {
-        BorrowedCopies.Remove(Copy);
+        var copyGot = BorrowedCopies.FirstOrDefault(c => c.Book.Id == bookId);
+        if (copyGot is not null)
+        {
+            copyGot.IsBorrowed = false;
+            return (true,copyGot.Id);
+        }
+        return (false, 0);
     }
 }
