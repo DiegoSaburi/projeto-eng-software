@@ -1,5 +1,7 @@
 public class BookReserve
 {
+    public int Id { get; init; }
+
     public User User { get; init; }
     
     public Book Book { get; init; }
@@ -8,8 +10,9 @@ public class BookReserve
 
     public DateTime ReservationDate { get; set; }
     
-    public BookReserve(User user, Book book, bool isActive = true)
+    public BookReserve(int id, User user, Book book, bool isActive = true)
     {
+        Id = id;
         Book = book;
         User = user;
         IsActive = isActive;

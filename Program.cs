@@ -6,6 +6,7 @@
     { "dev", new GiveBackCommand() },
     { "ntf", new GetUserNotificationsCommand() },
     { "obs", new AttachObserverCommand() },
+    { "liv", new GetBookInformationCommand() }
 };
 
 while(true)

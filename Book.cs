@@ -16,6 +16,8 @@ public class Book : ISubject
     public string Edition { get; init; }
     public string PublicationYear { get; init; }
 
+    public List<Copy> Copies { get; set; }
+
     private List<BookReserve> _reservations = new List<BookReserve>();
     public List<BookReserve> Reservations 
     { 

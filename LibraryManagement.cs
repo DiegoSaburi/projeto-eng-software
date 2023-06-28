@@ -1,5 +1,18 @@
 public sealed class LibraryManagement
 {
+
+    public LibraryManagement()
+    {
+        Books.ForEach(b => 
+        {
+            b.Reservations = BookReserves.Where(br => br.Book.Id == b.Id).ToList();
+        });
+        Books.ForEach(b => 
+        {
+            b.Copies = Copies.Where(br => br.Book.Id == b.Id).ToList();
+        });
+    }
+
     public static List<Book> Books = new List<Book>() 
     {
         new Book(0, "Livro 1", new List<string> { "Autor 1", "Autor 2" }, "edição 1", "2017"),
@@ -21,8 +34,8 @@ public sealed class LibraryManagement
 
     public static List<BookReserve> BookReserves = new List<BookReserve>()
     {
-        new BookReserve(Users[0], Books[0]),
-        new BookReserve(Users[1], Books[1])
+        new BookReserve(0, Users[0], Books[0]),
+        new BookReserve(1, Users[1], Books[1])
     };
 
     private static LibraryManagement instance;
@@ -102,6 +115,27 @@ public sealed class LibraryManagement
         );
     }
 
+    public void GetBookInformation(int bookId)
+    {
+        var book = Books.First(b => b.Id == bookId);
+        var reservationsCount = book.Reservations.Count;
+        Console.WriteLine($"Título do livro: {book.Title} tem {reservationsCount} reservas");
+        if(reservationsCount > 0)
+        {
+            book.Reservations.ForEach(br => 
+                {
+                    Console.WriteLine($"Reserva {br.Id} reservada por {br.User.Name}");
+                });
+        }
+        book.Copies.ForEach(cp => 
+            {
+                if(cp.Borrower is not null)
+                    Console.WriteLine($"Exemplar [{cp.Id}] com status {cp.CopyStatus} atualmente em posse da(o) usuária(o) {cp.Borrower.Name}");
+                else
+                    Console.WriteLine($"Exemplar [{cp.Id}] com status {cp.CopyStatus}");
+            });
+    }
+
     public void GetBackCopy(int userId, int bookId)
     {
         var user = Users.First(u => u.Id == userId);
@@ -120,7 +154,8 @@ public sealed class LibraryManagement
     {
         var user = Users.First(u => u.Id == userId);
         var book = Books.First(b => b.Id == bookId);
-        var bookReserve = new BookReserve(user, book);
+        var lastId = BookReserves.Last().Id;
+        var bookReserve = new BookReserve(lastId + 1,user, book);
         user.ReserveBook(bookReserve);
         BookReserves.Add(bookReserve);
     }

@@ -18,7 +18,7 @@ public abstract class User
     {
         if(copy is not null)
         {
-            copy.Borrow(BorrowCopyTimeLimit);
+            copy.Borrow(BorrowCopyTimeLimit, this);
             BorrowedCopies.Add(copy);
             return "Empréstimo feito com sucesso";
         }
