@@ -5,16 +5,8 @@ public sealed class LibraryManagement
     {
         Books.ForEach(b => 
         {
-            b.Reservations = BookReserves.Where(br => br.Book.Id == b.Id).ToList();
-        });
-        Books.ForEach(b => 
-        {
             b.Copies = Copies.Where(cp => cp.Book.Id == b.Id).ToList();
         });
-        // Users.ForEach(u => 
-        // {
-        //     u.BorrowedCopies = Copies.Where(cp => cp.Borrower.Id == u.Id).ToList();
-        // });
     }
 
     public static List<Book> Books = new List<Book>() 
@@ -40,7 +32,6 @@ public sealed class LibraryManagement
         new Copy(7, Books.First(b => b.Id == 300)),
         new Copy(8, Books.First(b => b.Id == 400)),
         new Copy(9, Books.First(b => b.Id == 400))
-
     };
 
     public static List<User> Users = new List<User>()
@@ -51,11 +42,7 @@ public sealed class LibraryManagement
         new GraduateStudent(456, "Luiz Fernando Rodrigues")
     };
 
-    public static List<BookReserve> BookReserves = new List<BookReserve>()
-    {
-        new BookReserve(0, Users[0], Books[0]),
-        new BookReserve(1, Users[1], Books[1])
-    };
+    public static List<BookReserve> BookReserves = new List<BookReserve>() { };
 
     private static LibraryManagement instance;
     private static readonly object lockObject = new object();
@@ -85,12 +72,12 @@ public sealed class LibraryManagement
         string response = user.TryBorrowCopy(copy);
         if(copy is not null)
         {
-            var newCopy = Copies.First(cp => cp.Id == copy!.Id);
-            newCopy.Borrow(copy!.BorrowedTime, user);
+            var copyToBorrow = Copies.First(cp => cp.Id == copy!.Id);
+            copyToBorrow.Borrow(copy!.BorrowedTime, user);
             if(user.BookReserves.Any(br => br.Book.Id == bookId))
             {
                 var bookReserve = BookReserves.First(br => br.Book.Id == bookId);
-                bookReserve.IsActive = false;
+                bookReserve.FinishReservation();
             }
         }
         Console.WriteLine(response);
@@ -112,26 +99,36 @@ public sealed class LibraryManagement
     public void GetUserBorrowsAndReserves(int userId)
     {
         var user = Users.First(u => u.Id == userId);
-        Console.WriteLine($"Livros reservados pela(o) usuária(o) {user.Name}:");
-        user.BookReserves.ForEach(br => 
-            {
-                Console
-                .WriteLine(
-                    $"Título: {br.Book.Title} Data da reserva: {br.ReservationDate.ToString()}"
-                );
-            }
-        );
-        Console.WriteLine($"Livros emprestados a(o) usuária(o) {user.Name}");
-        user.BorrowedCopies.ForEach(bc => 
-            {
-                Console
-                .WriteLine(
-                    $"Título: {bc.Book.Title}" +
-                    $"Data de devolução do empréstimo: {bc.BorrowedDate.ToString()}" +
-                    $"Status do empréstimo: {bc.CopyStatus}"
-                );
-            }
-        );
+        if(!user.BookReserves.Any() && !user.BorrowedCopies.Any())
+            Console.WriteLine($"Não existem reservas nem empréstimos para a usuária {user.Name}");
+
+        if(user.BookReserves.Any())
+        {
+            Console.WriteLine($"Livros reservados pela(o) usuária(o) {user.Name}:");
+            user.BookReserves.ForEach(br => 
+                {
+                    Console
+                    .WriteLine(
+                        $"Título: {br.Book.Title} Data da reserva: {br.ReservationDate.ToString()}"
+                    );
+                }
+            );
+        }
+        
+        if(user.BorrowedCopies.Any())
+        {
+            Console.WriteLine($"Livros emprestados a(o) usuária(o) {user.Name}");
+            user.BorrowedCopies.ForEach(bc => 
+                {
+                    Console
+                    .WriteLine(
+                        $"Título: {bc.Book.Title}" +
+                        $"Data de devolução do empréstimo: {bc.BorrowedDate.ToString()}" +
+                        $"Status do empréstimo: {bc.CopyStatus}"
+                    );
+                }
+            );
+        }
     }
 
     public void GetBookInformation(int bookId)
@@ -173,9 +170,16 @@ public sealed class LibraryManagement
     {
         var user = Users.First(u => u.Id == userId);
         var book = Books.First(b => b.Id == bookId);
-        var lastId = BookReserves.Last().Id;
-        var bookReserve = new BookReserve(lastId + 1,user, book);
-        user.ReserveBook(bookReserve);
+        var newId = 0;
+        
+        if(BookReserves.Any())
+            newId = BookReserves.Last().Id + 1;
+
+        var bookReserve = new BookReserve(newId, user, book);
+        var response = user.ReserveBook(bookReserve);
+        Console.WriteLine(response);
+
+        book.ReservationUpdate(bookReserve);
         BookReserves.Add(bookReserve);
     }
 }

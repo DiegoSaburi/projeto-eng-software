@@ -6,9 +6,9 @@ public class BookReserve
     
     public Book Book { get; init; }
 
-    public bool IsActive { get; set; }
+    public bool IsActive { get; private set; }
 
-    public DateTime ReservationDate { get; set; }
+    public DateTime ReservationDate { get; private set; }
     
     public BookReserve(int id, User user, Book book, bool isActive = true)
     {
@@ -17,4 +17,13 @@ public class BookReserve
         User = user;
         IsActive = isActive;
     }
+
+    public void Reserve()
+    {
+        ReservationDate = DateTime.UtcNow;
+        IsActive = true;
+    }
+    
+    public void FinishReservation() =>
+        IsActive = false;
 }

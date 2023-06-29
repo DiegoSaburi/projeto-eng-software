@@ -2,8 +2,11 @@ public sealed class UndergraduateStudentBorrowStrategy : IBorrowStrategy
 {
     public Copy? CanBorrowCopy(User user, IEnumerable<Copy> copies)
     {
-        
+        if(copies is null || !copies.Any())
+            return null;
+
         int bookId = copies.First().Book.Id;
+        Book book = copies.First().Book;
         
         bool userAlreadyHasCopy = 
             copies.Any(c => user.BorrowedCopies.Any(c2 => c2.Id == c.Id));
@@ -15,18 +18,21 @@ public sealed class UndergraduateStudentBorrowStrategy : IBorrowStrategy
         && user.BorrowedCopies.All(b => b.BorrowedTime > DateTime.Now.TimeOfDay);
 
         bool libraryHasAvailableCopies = copies.Any(c => c.CopyStatus.Equals(CopyStatus.Finished));
+
         bool userHasBookReserve = user.BookReserves.Any(br => br.Book.Id == bookId);
+
         bool libraryHasEqualReservesCopiesRatio = 
-            user.BookReserves.Count(br => br.Book.Id == bookId) == copies.Count();
+            book.Reservations.Count == copies.Count();
         bool libraryHasMoreCopiesThenReserves = user.BookReserves.Count(br => br.Book.Id == bookId) < copies.Count();
-        //refatorar essa desgraça de nome gigantesco
-        bool copiesEqualReserveAndUserHasReserve = (userHasBookReserve && libraryHasEqualReservesCopiesRatio) || (!userHasBookReserve && libraryHasMoreCopiesThenReserves);
 
-        bool copiesEqualReservesAndUserDontReserve = !userHasBookReserve && libraryHasEqualReservesCopiesRatio;
+        bool UserHasReserveOrLibraryHasSufficientCopies = (userHasBookReserve && libraryHasEqualReservesCopiesRatio) || (!userHasBookReserve && libraryHasMoreCopiesThenReserves);
 
-        if(!libraryHasMoreCopiesThenReserves || copiesEqualReservesAndUserDontReserve) return null;
+        bool copiesEqualReservesAndUserDoesntHaveReserve = !userHasBookReserve && libraryHasEqualReservesCopiesRatio;
 
-        if(copiesEqualReserveAndUserHasReserve
+        if(!libraryHasMoreCopiesThenReserves || copiesEqualReservesAndUserDoesntHaveReserve) 
+            return null;
+
+        if(UserHasReserveOrLibraryHasSufficientCopies
            && hasValidUserRules 
            && libraryHasAvailableCopies)
             return copies.First(c => c.CopyStatus.Equals(CopyStatus.Finished));

@@ -18,18 +18,15 @@ public class Book : ISubject
     public string Editor { get; init; }
     public string PublicationYear { get; init; }
 
-    public List<Copy> Copies { get; set; }
+    public List<Copy> Copies { get; set; } = new List<Copy>();
 
-    private List<BookReserve> _reservations = new List<BookReserve>();
-    public List<BookReserve> Reservations 
-    { 
-        get => _reservations; 
-        set 
-        {
-            _reservations = value;
-            if(_reservations.Count > 2)
-                Notify();
-        }
+    public List<BookReserve> Reservations { get; private set; } = new List<BookReserve>();
+
+    public void ReservationUpdate(BookReserve reservation)
+    {
+        Reservations.Add(reservation);
+        if(Reservations.Count > 1)
+            Notify();
     }
 
     private List<IObserver> Observers = new List<IObserver>();
