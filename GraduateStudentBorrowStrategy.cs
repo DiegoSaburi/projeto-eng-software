@@ -13,7 +13,7 @@ public sealed class GraduateStudentBorrowStrategy : IBorrowStrategy
         bool hasValidUserRules = user.BorrowedCopies.Count < 4
         && user.BorrowedCopies.All(b => b.BorrowedTime > DateTime.Now.TimeOfDay);
 
-        bool libraryHasAvailableCopies = copies.Any(c => !c.IsBorrowed);
+        bool libraryHasAvailableCopies = copies.Any(c => c.CopyStatus.Equals(CopyStatus.Finished));
         bool userHasBookReserve = user.BookReserves.Any(br => br.Book.Id == bookId);
         bool libraryHasMoreOrEqualReservesCopiesRatio = 
             user.BookReserves.Count(br => br.Book.Id == bookId) < copies.Count();
@@ -22,12 +22,12 @@ public sealed class GraduateStudentBorrowStrategy : IBorrowStrategy
            && libraryHasMoreOrEqualReservesCopiesRatio 
            && hasValidUserRules 
            && libraryHasAvailableCopies)
-            return copies.First(c => !c.IsBorrowed);
+            return copies.First(c => c.CopyStatus.Equals(CopyStatus.Finished));
         
         bool libraryHasMoreReservesThanCopies = 
             user.BookReserves.Count(br => br.Book.Id == bookId) < copies.Count();
         if(libraryHasMoreReservesThanCopies)
             return null;
-        return copies.First(c => !c.IsBorrowed);
+        return copies.First(c => c.CopyStatus.Equals(CopyStatus.Finished));
     }
 }

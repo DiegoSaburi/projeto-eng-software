@@ -17,6 +17,7 @@ public class Copy
         Id = id;
         Book = book;
         Borrower = null;
+        CopyStatus = CopyStatus.Finished;
     }
 
     public TimeSpan BorrowedTime { get; private set; }

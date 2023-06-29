@@ -15,7 +15,7 @@ while(true)
     string[] userInput = Console.ReadLine()?.Split(" ")!;
    
     var commandString = userInput[0];
-    if(string.Equals(commandString, "sair"))
+    if(string.Equals(commandString, "sai"))
         break;
 
     ICommand<LibraryRequest> command;

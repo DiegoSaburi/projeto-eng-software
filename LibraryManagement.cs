@@ -9,27 +9,46 @@ public sealed class LibraryManagement
         });
         Books.ForEach(b => 
         {
-            b.Copies = Copies.Where(br => br.Book.Id == b.Id).ToList();
+            b.Copies = Copies.Where(cp => cp.Book.Id == b.Id).ToList();
         });
+        // Users.ForEach(u => 
+        // {
+        //     u.BorrowedCopies = Copies.Where(cp => cp.Borrower.Id == u.Id).ToList();
+        // });
     }
 
     public static List<Book> Books = new List<Book>() 
     {
-        new Book(0, "Livro 1", new List<string> { "Autor 1", "Autor 2" }, "edição 1", "2017"),
-        new Book(1, "Livro 2", new List<string> { "Autor 1", "Autor 2" }, "edição 1", "2017")
+        new Book(100, "Engenharia de Software", new List<string> { "Ian Sommervile"},"AddisonWesley", "6ª", "2000"),
+        new Book(101, "UML - Guia do Usuário", new List<string> { "Grady Booch", "JamesRumbaugh", "IvarJacobson"},"Campus ", "7ª", "2000"),
+        new Book(200, "Code Complete", new List<string> { "Ian Sommervile"},"MicrosoftPress", "2ª", "2014"),
+        new Book(201, "Agile Software Development, Principles, Patterns, and Practices", new List<string> { "Robert Martin "},"Prentice Hall", "1ª", "2002"),
+        new Book(300, "Refactoring: Improving the Design of Existing Code", new List<string> { "Martin Fowler"},"AddisonWesley Professional", "1ª", "1999"),
+        new Book(301, "Software Metrics: A Rigorous and Practical Approach", new List<string> { "Norman Fenton", "James Bieman"},"CRC Press", "3ª", "2014"),
+        new Book(400, "Design Patterns: Elements of Reusable Object-Oriented Software", new List<string> { "Erich Gamma", "Richard Helm", "Ralph Johnson", "John Vlissides"},"AddisonWesley Professional", "1ª", "1994"),
+        new Book(401, "UML Distilled: A Brief Guide to the Standard Object Modeling Language", new List<string> { "Martin Fowler"},"AddisonWesley Professional", "3ª", "2003")
     };
 
     public static List<Copy> Copies = new List<Copy>() 
     {
-        new Copy(0, Books[0]),
-        new Copy(1, Books[1])
+        new Copy(1, Books.First(b => b.Id == 100)),
+        new Copy(2, Books.First(b => b.Id == 100)),
+        new Copy(3, Books.First(b => b.Id == 101)),
+        new Copy(4, Books.First(b => b.Id == 200)),
+        new Copy(5, Books.First(b => b.Id == 201)),
+        new Copy(6, Books.First(b => b.Id == 300)),
+        new Copy(7, Books.First(b => b.Id == 300)),
+        new Copy(8, Books.First(b => b.Id == 400)),
+        new Copy(9, Books.First(b => b.Id == 400))
+
     };
 
     public static List<User> Users = new List<User>()
     {
-        new Teacher(0, "Professor 1"),
-        new UndergraduateStudent(1, "Estudante de graduação 1"),
-        new GraduateStudent(2, "Estudante de pós-graduação 1")
+        new Teacher(100, "Carlos Lucena"),
+        new UndergraduateStudent(123, "João da Silva"),
+        new UndergraduateStudent(789, "Pedro Paulo"),
+        new GraduateStudent(456, "Luiz Fernando Rodrigues")
     };
 
     public static List<BookReserve> BookReserves = new List<BookReserve>()
@@ -67,7 +86,7 @@ public sealed class LibraryManagement
         if(copy is not null)
         {
             var newCopy = Copies.First(cp => cp.Id == copy!.Id);
-            newCopy.Borrow(copy!.BorrowedTime);
+            newCopy.Borrow(copy!.BorrowedTime, user);
             if(user.BookReserves.Any(br => br.Book.Id == bookId))
             {
                 var bookReserve = BookReserves.First(br => br.Book.Id == bookId);

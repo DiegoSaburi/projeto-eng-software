@@ -6,10 +6,10 @@ public sealed class TeacherBorrowStrategy : IBorrowStrategy
 
         bool hasValidUserRules = user.BorrowedCopies.All(b => b.BorrowedTime > DateTime.Now.TimeOfDay);
 
-        bool libraryHasAvailableCopies = copies.Any(c => !c.IsBorrowed);
+        bool libraryHasAvailableCopies = copies.Any(c => c.CopyStatus.Equals(CopyStatus.Finished));
 
         if(hasValidUserRules && libraryHasAvailableCopies)
-            return copies.First(c => !c.IsBorrowed);
+            return copies.First(c => c.CopyStatus.Equals(CopyStatus.Finished));
         return null;
     }
 }

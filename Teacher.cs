@@ -6,6 +6,8 @@ public class Teacher : User, IObserver
         Name = name;
     }
 
+    public override IBorrowStrategy BorrowStrategy { get; } = new TeacherBorrowStrategy();
+
     public override TimeSpan BorrowCopyTimeLimit { get; } = TimeSpan.FromDays(7);
     
     public int HowManyNotifications { get; private set; }

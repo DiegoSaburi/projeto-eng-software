@@ -7,4 +7,6 @@ public class UndergraduateStudent : User
     }
 
     public override TimeSpan BorrowCopyTimeLimit { get; } = TimeSpan.FromDays(3);
+
+    public override IBorrowStrategy BorrowStrategy { get; } = new UndergraduateStudentBorrowStrategy();
 }

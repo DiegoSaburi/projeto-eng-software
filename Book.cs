@@ -1,12 +1,13 @@
 public class Book : ISubject
 {
-    public Book(int id, string title, List<string> authors, string edition,
+    public Book(int id, string title, List<string> authors,string editor, string edition,
             string publicationYear)
     {
         Id = id;
         Title = title;
         Authors = authors;
         Edition = edition;
+        Editor = editor;
         PublicationYear = publicationYear;
     }
 
@@ -14,6 +15,7 @@ public class Book : ISubject
     public string Title { get; init; }
     public List<string> Authors { get; init; }
     public string Edition { get; init; }
+    public string Editor { get; init; }
     public string PublicationYear { get; init; }
 
     public List<Copy> Copies { get; set; }
