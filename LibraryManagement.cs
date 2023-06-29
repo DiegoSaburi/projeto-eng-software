@@ -135,9 +135,9 @@ public sealed class LibraryManagement
     {
         var book = Books.First(b => b.Id == bookId);
         var reservationsCount = book.Reservations.Count;
-        Console.WriteLine($"Título do livro: {book.Title} tem {reservationsCount} reservas");
         if(reservationsCount > 0)
         {
+            Console.WriteLine($"Título do livro: {book.Title} tem {reservationsCount} reservas");
             book.Reservations.ForEach(br => 
                 {
                     Console.WriteLine($"Reserva {br.Id} reservada por {br.User.Name}");

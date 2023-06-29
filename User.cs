@@ -12,7 +12,7 @@ public abstract class User
     
     private bool CanReserve { get => BookReserves.Count() < 3; }
     
-    public virtual IBorrowStrategy BorrowStrategy { get; } 
+    public virtual IBorrowStrategy BorrowStrategy { get; } = new UndergraduateStudentBorrowStrategy();
     
     public string TryBorrowCopy(Copy? copy)
     {
