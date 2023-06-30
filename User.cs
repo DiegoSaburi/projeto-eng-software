@@ -28,25 +28,20 @@ public abstract class User
             bookReservation.FinishReservation();
     }
 
-    public string ReserveBook(BookReserve bookReserve)
+    public bool ReserveBook(BookReserve bookReserve)
     {
         if(CanReserve)
         {
             bookReserve.Reserve();
             BookReserves.Add(bookReserve);
-            return $"Livro {bookReserve.Book.Title}, reservado para usuário {Name} com sucesso";
+            return true;
         }
-        return $"Já existem mais de três reservas para o usuário {Name}";
+        return false;
     }
 
-    public (bool, int) ReturnCopy(int bookId)
+    public void ReturnCopy(Copy borroweredCopy)
     {
-        var borroweredCopy = BorrowedCopies.FirstOrDefault(c => c.Book.Id == bookId);
-        if (borroweredCopy is not null)
-        {
-            borroweredCopy.CopyStatus = CopyStatus.Finished;
-            return (true, borroweredCopy.Id);
-        }
-        return (false, 0);
+        var userBorroweredCopy = BorrowedCopies.First(bc => bc.Id == borroweredCopy.Id);
+        userBorroweredCopy.CopyStatus = CopyStatus.Finished;
     }
 }

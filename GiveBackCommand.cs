@@ -1,9 +1,9 @@
 public class GiveBackCommand : ICommand<LibraryRequest>
 {
-    public void Execute(LibraryRequest data)
+    public Response Execute(LibraryRequest data)
     {
         var libraryManagement = LibraryManagement.Instance;
-        libraryManagement.GetBackCopy(data.UserId, data.BookId);        
+        return libraryManagement.GetBackCopy(data.UserId, data.BookId);        
     }
     
 }

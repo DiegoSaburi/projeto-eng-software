@@ -1,8 +1,8 @@
 public class ReserveBookCommand : ICommand<LibraryRequest>
 {
-    public void Execute(LibraryRequest data)
+    public Response Execute(LibraryRequest data)
     {
         var libraryManagment = LibraryManagement.Instance;
-        libraryManagment.ReserveBook(data.UserId, data.BookId);
+        return libraryManagment.ReserveBook(data.UserId, data.BookId);
     }
 }

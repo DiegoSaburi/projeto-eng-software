@@ -1,8 +1,8 @@
 public class GetUserBorrowsAndReservesCommand : ICommand<LibraryRequest>
 {
-    public void Execute(LibraryRequest data)
+    public Response Execute(LibraryRequest data)
     {
         var libraryManagement = LibraryManagement.Instance;
-        libraryManagement.GetUserBorrowsAndReserves(data.UserId);
+        return libraryManagement.GetUserBorrowsAndReserves(data.UserId);
     }
 }

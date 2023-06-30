@@ -1,8 +1,8 @@
 public class AttachObserverCommand : ICommand<LibraryRequest>
 {
-    public void Execute(LibraryRequest data)
+    public Response Execute(LibraryRequest data)
     {
         var libraryManagment = LibraryManagement.Instance;
-        libraryManagment.AddBookObserver(data.UserId, data.BookId);
+        return libraryManagment.AddBookObserver(data.UserId, data.BookId);
     }
 }
