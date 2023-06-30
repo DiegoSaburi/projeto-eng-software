@@ -64,15 +64,20 @@ public sealed class LibraryManagement
 
     }
 
-    public void LendCopy(int userId, int bookId)
+    public Response LendCopy(int userId, int bookId)
     {
         var user = Users.First(u => u.Id == userId);
         var copies = Copies.Where(c => c.Book.Id == bookId);
-        var copy = user.BorrowStrategy.CanBorrowCopy(user, copies);
-        string response = user.TryBorrowCopy(copy);
-        if(copy is not null)
+        
+        if(copies is null)
+            return new CopyResponse(null, "Não existem exemplares este livro", null);
+
+        CopyResponse response = user.BorrowStrategy.CanBorrowCopy(user, copies);
+        if(!response.HasError)
         {
-            var copyToBorrow = Copies.First(cp => cp.Id == copy!.Id);
+            var copy = response.Copy!;
+            user.BorrowCopy(copy);
+            var copyToBorrow = Copies.First(cp => cp.Id == copy.Id);
             copyToBorrow.Borrow(copy!.BorrowedTime, user);
             if(user.BookReserves.Any(br => br.Book.Id == bookId))
             {
@@ -80,8 +85,7 @@ public sealed class LibraryManagement
                 bookReserve.FinishReservation();
             }
         }
-        Console.WriteLine(response);
-    
+        return response;
     }
 
     public void AddBookObserver(int userId, int bookId)
@@ -155,15 +159,15 @@ public sealed class LibraryManagement
     public void GetBackCopy(int userId, int bookId)
     {
         var user = Users.First(u => u.Id == userId);
-        var (returned,returnedCopyId)= user.ReturnCopy(bookId);
+        var (returned, returnedCopyId)= user.ReturnCopy(bookId);
         if(returned)
         {            
             var originalCopy = Copies.First(c => c.Id == returnedCopyId);
             originalCopy.CopyStatus = CopyStatus.Finished;
 
-            Console.WriteLine($"usuário {user.Name} devolveu o livro {originalCopy.Book.Title} com sucesso");
+            Console.WriteLine($"usuária(o) {user.Name} devolveu o livro {originalCopy.Book.Title} com sucesso");
         }
-        //TODO: printar linha de erro ao tentar retornar o livro
+        Console.WriteLine($"Usuária(o) {user.Name} não tem empréstimos ativos do livro indicado");
     }
 
     public void ReserveBook(int userId, int bookId)

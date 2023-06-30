@@ -1,8 +1,8 @@
 public class BorrowCommand : ICommand<LibraryRequest>
 {
-    public void Execute(LibraryRequest data)
+    public Response Execute(LibraryRequest data)
     {
         var libraryManagement = LibraryManagement.Instance;
-        libraryManagement.LendCopy(data.UserId, data.BookId);
+        return libraryManagement.LendCopy(data.UserId, data.BookId);
     }
 }

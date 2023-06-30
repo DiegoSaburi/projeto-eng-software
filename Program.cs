@@ -21,7 +21,11 @@ while(true)
     ICommand<LibraryRequest> command;
     Commands.TryGetValue(commandString, out command!);
     LibraryRequest request = new (int.Parse(userInput[1]), int.Parse(userInput[2]));
-    command.Execute(request);
+    var response = command.Execute(request);
+    if(response.HasError)
+        Console.WriteLine(response.ErrorMessage);
+    else
+        Console.WriteLine(response.SuccessMessage);
 }
 
 

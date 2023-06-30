@@ -14,16 +14,11 @@ public abstract class User
     
     public virtual IBorrowStrategy BorrowStrategy { get; } = new UndergraduateStudentBorrowStrategy();
     
-    public string TryBorrowCopy(Copy? copy)
+    public void BorrowCopy(Copy copy)
     {
-        if(copy is not null)
-        {
-            copy.Borrow(BorrowCopyTimeLimit, this);
-            FinishReservation(copy.Book.Id);
-            BorrowedCopies.Add(copy);
-            return "Empréstimo feito com sucesso";
-        }
-        return "Não foi possível concluir o empréstimo";
+        copy.Borrow(BorrowCopyTimeLimit, this);
+        FinishReservation(copy.Book.Id);
+        BorrowedCopies.Add(copy);
     }
 
     private void FinishReservation(int bookId)

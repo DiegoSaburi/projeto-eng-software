@@ -1,4 +1,4 @@
 public interface ICommand<T>
 {
-    void Execute(T data);
+    Response Execute(T data);
 }

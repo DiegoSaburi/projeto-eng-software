@@ -1,4 +1,4 @@
 public interface IBorrowStrategy
 {
-    Copy? CanBorrowCopy(User user, IEnumerable<Copy> copies);
+    CopyResponse CanBorrowCopy(User user, IEnumerable<Copy> copies);
 }
