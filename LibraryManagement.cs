@@ -1,3 +1,5 @@
+// Singleton e Façade
+
 using System.Text;
 
 public sealed class LibraryManagement
