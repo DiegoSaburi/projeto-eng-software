@@ -4,6 +4,7 @@ public sealed class GraduateStudentBorrowStrategy : IBorrowStrategy
 
     public CopyResponse CanBorrowCopy(User user, IEnumerable<Copy> copies)
     {
+        Errors.Clear();
         ValidateUserAlreadyHasCopy(user, copies);
         ValidateUserIsUnderCopiesCountLimit(user);
         ValidateUserHasNoOverdue(user);
@@ -13,10 +14,10 @@ public sealed class GraduateStudentBorrowStrategy : IBorrowStrategy
             return new CopyResponse(null, Errors.First(), null);
         return new CopyResponse($"Empréstimo efetuado do livro {copies.First().Book.Title} para {user.Name} com sucesso", null, copies.First(c => c.CopyStatus.Equals(CopyStatus.Finished)));
     }
-    
     private void ValidateUserAlreadyHasCopy(User user, IEnumerable<Copy> copies)
     {
-        if(copies.Any(c => user.BorrowedCopies.Any(c2 => c2.Id == c.Id)))
+        var copy = copies.First();
+        if(user.BorrowedCopies.Any(c => c.Id == copy.Id))
             Errors.Add($"{user.Name} já detém um exemplar deste livro, não será possível efetuar o empréstimo.");
     }
 

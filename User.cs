@@ -42,6 +42,6 @@ public abstract class User
     public void ReturnCopy(Copy borroweredCopy)
     {
         var userBorroweredCopy = BorrowedCopies.First(bc => bc.Id == borroweredCopy.Id);
-        userBorroweredCopy.CopyStatus = CopyStatus.Finished;
+        userBorroweredCopy.GiveBackCopy();
     }
 }

@@ -20,7 +20,7 @@ public class BookReserve
 
     public void Reserve()
     {
-        ReservationDate = DateTime.UtcNow;
+        ReservationDate = DateTime.Now;
         IsActive = true;
     }
     

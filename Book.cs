@@ -22,11 +22,19 @@ public class Book : ISubject
 
     public List<BookReserve> Reservations { get; private set; } = new List<BookReserve>();
 
+    private bool _hasAlreadyNotified = false;
+
     public void ReservationUpdate(BookReserve reservation)
     {
         Reservations.Add(reservation);
-        if(Reservations.Count > 1)
+        var currentActiveReservations = Reservations.Where(r => r.IsActive);
+        if(currentActiveReservations.Count() > 1 && !_hasAlreadyNotified)
+        {
+            _hasAlreadyNotified = true;
             Notify();
+        }
+        else
+            _hasAlreadyNotified = false;
     }
 
     private List<IObserver> Observers = new List<IObserver>();

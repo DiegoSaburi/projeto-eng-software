@@ -4,6 +4,8 @@ public sealed class UndergraduateStudentBorrowStrategy : IBorrowStrategy
 
     public CopyResponse CanBorrowCopy(User user, IEnumerable<Copy> copies)
     {
+        //por questão de tempo, tivemos que forçar a limpeza do array de erros
+        Errors.Clear();
         ValidateUserAlreadyHasCopy(user, copies);
         ValidateUserIsUnderCopiesCountLimit(user);
         ValidateUserHasNoOverdue(user);
@@ -16,7 +18,8 @@ public sealed class UndergraduateStudentBorrowStrategy : IBorrowStrategy
     
     private void ValidateUserAlreadyHasCopy(User user, IEnumerable<Copy> copies)
     {
-        if(copies.Any(c => user.BorrowedCopies.Any(c2 => c2.Id == c.Id)))
+        var copy = copies.First();
+        if(user.BorrowedCopies.Any(c => c.Id == copy.Id))
             Errors.Add($"{user.Name} já detém um exemplar deste livro, não será possível efetuar o empréstimo.");
     }
 

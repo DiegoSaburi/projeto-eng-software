@@ -5,6 +5,11 @@ public sealed class LibraryManagement
 
     public LibraryManagement()
     {
+        // Código para executar cenário de débito ativo
+        // var dia = TimeSpan.FromDays(-8);
+        // var starterCopy = new Copy(11, Books.First(b => b.Id == 100));
+        // starterCopy.Borrow(dia, Users.First());
+        // Users.First().BorrowedCopies.Add(starterCopy);
         Books.ForEach(b => 
         {
             b.Copies = Copies.Where(cp => cp.Book.Id == b.Id).ToList();
@@ -128,8 +133,9 @@ public sealed class LibraryManagement
             user.BorrowedCopies.ForEach(bc => 
                 {
                     sb.AppendLine(
-                        $"Título: {bc.Book.Title}" +
-                        $"Data de devolução do empréstimo: {bc.BorrowedDate.ToString()}" +
+                        $"Título: {bc.Book.Title} " +
+                        $"Data do empréstimo: {bc.BorrowedDate.ToString()} " +
+                        $"Data da devolução: {bc.GiveBackDate.ToString()} " +
                         $"Status do empréstimo: {bc.CopyStatus}"
                     );
                 }

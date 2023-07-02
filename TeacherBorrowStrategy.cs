@@ -4,6 +4,7 @@ public sealed class TeacherBorrowStrategy : IBorrowStrategy
 
     public CopyResponse CanBorrowCopy(User user, IEnumerable<Copy> copies)
     {
+        Errors.Clear();
         Book book = copies.First().Book;
         ValidateUserHasNoOverdue(user);
         ValidateLibraryHasAvailableCopies(copies);
