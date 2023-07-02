@@ -1,7 +1,6 @@
 public sealed class GraduateStudentBorrowStrategy : IBorrowStrategy
 {
     private List<string> Errors { get; set; } = new List<string>();
-    private string? BookTitle { get; set; }
 
     public CopyResponse CanBorrowCopy(User user, IEnumerable<Copy> copies)
     {
@@ -12,7 +11,7 @@ public sealed class GraduateStudentBorrowStrategy : IBorrowStrategy
         ValidateLibraryHasEqualCopiesAndReserves(user, copies);
         if(Errors.Count > 0)
             return new CopyResponse(null, Errors.First(), null);
-        return new CopyResponse($"Empréstimo efetuado do livro {BookTitle} para {user.Name} com sucesso", null, copies.First(c => c.CopyStatus.Equals(CopyStatus.Finished)));
+        return new CopyResponse($"Empréstimo efetuado do livro {copies.First().Book.Title} para {user.Name} com sucesso", null, copies.First(c => c.CopyStatus.Equals(CopyStatus.Finished)));
     }
     
     private void ValidateUserAlreadyHasCopy(User user, IEnumerable<Copy> copies)
