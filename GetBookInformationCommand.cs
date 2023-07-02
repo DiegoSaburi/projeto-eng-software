@@ -1,8 +1,8 @@
 public class GetBookInformationCommand : ICommand<LibraryRequest>
 {
-    public void Execute(LibraryRequest data)
+    public Response Execute(LibraryRequest data)
     {
         var libraryManagment = LibraryManagement.Instance;
-        libraryManagment.GetBookInformation(data.BookId);
+        return libraryManagment.GetBookInformation(data.BookId);
     }
 }

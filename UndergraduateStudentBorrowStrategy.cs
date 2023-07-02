@@ -30,7 +30,7 @@ public sealed class UndergraduateStudentBorrowStrategy : IBorrowStrategy
     private void ValidateUserHasNoOverdue(User user)
     {
         if(!user.BorrowedCopies
-                .All(b => b.BorrowedTime > DateTime.Now.TimeOfDay))
+                .All(b => b.CopyStatus == CopyStatus.Running && b.BorrowedTime > DateTime.Now.TimeOfDay))
             Errors.Add($"{user.Name} tem um débito em aberto, não será possível efetuar o empréstimo.");
     }
     

@@ -138,25 +138,27 @@ public sealed class LibraryManagement
         return new Response(sb.ToString(), null);
     }
 
-    public void GetBookInformation(int bookId)
+    public Response GetBookInformation(int bookId)
     {
         var book = Books.First(b => b.Id == bookId);
         var reservationsCount = book.Reservations.Count;
+        var sb = new StringBuilder();
         if(reservationsCount > 0)
         {
-            Console.WriteLine($"Título do livro: {book.Title} tem {reservationsCount} reservas");
+            sb.AppendLine($"Título do livro: {book.Title} tem {reservationsCount} reservas");
             book.Reservations.ForEach(br => 
                 {
-                    Console.WriteLine($"Reserva {br.Id} reservada por {br.User.Name}");
+                    sb.AppendLine($"Reserva {br.Id} reservada por {br.User.Name}");
                 });
         }
         book.Copies.ForEach(cp => 
             {
                 if(cp.Borrower is not null)
-                    Console.WriteLine($"Exemplar [{cp.Id}] com status {cp.CopyStatus} atualmente em posse da(o) usuária(o) {cp.Borrower.Name}");
+                    sb.AppendLine($"Exemplar [{cp.Id}] com status {cp.CopyStatus} atualmente em posse da(o) usuária(o) {cp.Borrower.Name}");
                 else
-                    Console.WriteLine($"Exemplar [{cp.Id}] com status {cp.CopyStatus}");
+                    sb.AppendLine($"Exemplar [{cp.Id}] com status {cp.CopyStatus}");
             });
+        return new Response(sb.ToString(), null);
     }
 
     public Response GetBackCopy(int userId, int bookId)
